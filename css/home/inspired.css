@@ -1,0 +1,63 @@
+#inspired-section{
+    padding: 1px;
+    height:12.5rem;
+    width: 99.8%;
+    display: flex;
+    flex-direction: row;
+
+}
+.inspired-main{
+    width:55rem;
+}
+#inspired-text{
+    margin-left: 17.5rem;
+    margin-top: 0.5rem;
+}
+
+h3{
+    font-family: "Poppins",sans-serif;
+    font-size: 1.75rem;
+    color: white;
+}
+
+.inspired-image{
+    display:flex;
+    flex-direction:row;
+    gap:4rem;
+    margin-left:4rem;
+}
+
+#img-1{
+    height:6.5rem;
+}
+
+#img-2{
+    height:2rem;
+    margin-top: 3rem;
+}
+
+#img-3{
+    height:3rem;
+    margin-top:2rem;
+}
+
+.inspired-quote{
+    margin-left:3rem;
+}
+
+.quote-img{
+    height:3.5rem;
+    margin-top: 1rem;;
+}
+
+.quote-text{
+    margin-top: -2rem;
+    font-family: "Poppins",sans-serif;
+    font-size: 2.55rem;
+    color: white;
+    margin-left: 4.5rem;
+    font-weight: 700;
+}
+.text{
+    margin-left: 0rem;
+}

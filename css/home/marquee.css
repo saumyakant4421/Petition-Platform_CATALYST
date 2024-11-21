@@ -1,0 +1,26 @@
+.marquee {
+    display: flex;
+    overflow: hidden;
+    width: 98.8vw;
+    height: 12vh;
+    gap: 1rem;
+    background-color: #1f2029;
+    z-index:13;
+    white-space: nowrap;
+  }
+  .marquee h2 {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+    align-self: center;
+    z-index:11;
+    color: #ffffff;
+    /* font-family:Intrepid; */
+    font-family: "Poppins", sans-serif;
+    background-color:#1f202920;
+    font-weight: 125;
+  }
+
+  .marquee > * {
+    flex-shrink: 0; /* Prevent child elements from shrinking */
+  }

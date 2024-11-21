@@ -1,0 +1,106 @@
+#categories-section {
+    height: 35rem;
+    border: 1px solid beige;
+}
+
+.categories-viz {
+    width: 46%;
+    float: left;
+}
+
+h1{
+    font-size: 40px;
+    color:aliceblue;
+    font-family: "Poppins", sans-serif;
+    margin-top: 2.75rem;
+    margin-left: 13rem;
+    font-weight: 400;
+
+}
+
+
+.categories-choice {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-content: center;
+    padding: 10px;
+    margin-left:5rem;
+    margin-top: 2.5rem;
+}
+
+.categories-content{
+    width:45%;
+    float:right;
+}
+
+
+.cate-image{
+    object-fit: contain;
+    height: 36rem;
+    width:auto;
+}
+
+
+
+
+
+/* BUTTONS */
+
+.choice-item {
+    align-items: center;
+    background-color: #ffffff;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: "Poppins",sans-serif;
+    font-size: 12px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.choice-item:after{
+    background-color: #9859D2;
+    border-radius: 8px;
+    content: "";
+    display: block;
+    height: 48px;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    transform: translate(8px, 8px);
+    transition: transform .2s ease-out;
+    z-index: -1;
+}
+
+.choice-item:hover:after{
+    transform: translate(0, 0);
+}
+
+.choice-item:active{
+    background-color: #ffffff;
+    outline: 0;
+}
+
+.choice-item:hover{
+    outline: 0;
+}
+
+@media (min-width: 768px) {
+    .choice-item {
+      padding: 0 40px;
+    }
+  }
