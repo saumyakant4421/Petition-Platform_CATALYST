@@ -1,0 +1,294 @@
+/*--------------------------------------------------------------*/
+/*----------------------- ACCOUNT STYLES -----------------------*/
+/*--------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+
+
+#account-section {
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 4rem 6rem;
+  display: grid;
+  gap: 2rem;
+  height: 40rem;
+  border: 1px solid beige;
+  
+}
+
+.account-section-title {
+  font-family: "Poppins", sans-serif;
+  text-shadow: 4px 4px #000000;
+  text-align: center;
+  line-height: 1.25;
+  font-weight: 350;
+  font-size: 4rem;
+  cursor: default;
+  color: #fff;
+  margin-top: 1rem;
+
+}
+
+/*-------------------------------------------*/
+/*--------------- INFORMATION ---------------*/
+/*-------------------------------------------*/
+
+.account-carousel {
+  justify-content: flex-start;
+  grid-auto-flow: column;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 auto;
+  display: grid;
+  width: 1000px;
+  height:35rem;
+  background-color: #2a2b38;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+  background-repeat: no-repeat;
+  background-size: 300%;
+  background-position: bottom center;
+  box-shadow: 10px 10px #100707;
+  border-radius: 8px;
+  
+}
+
+.account-slide {
+  grid-template-columns: repeat(2, auto);
+  justify-content: center;
+  border-radius: 2.5px;
+  align-items: center;
+  padding: 2rem 0;
+  margin: 0 auto;
+  width: 1000px;
+  display: grid;
+  gap: 5rem;
+}
+
+/*---------------------------------------*/
+/*------------ REGISTER FORM ------------*/
+/*---------------------------------------*/
+
+.register-form {
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 2rem;
+}
+
+.input-container {
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  gap: 0.25rem;
+}
+
+/*----------------------------------------*/
+/*------------- INPUT STYLES -------------*/
+/*----------------------------------------*/
+
+.input-label {
+  font-family: "Poppins", sans-serif;
+  text-shadow: 2.5px 2.5px #000;
+  justify-content: center;
+  letter-spacing: 0.65px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  cursor: default;
+  color: #fff;
+  
+}
+
+.input {
+  box-shadow: 2.5px 2.5px 2.5px #000;
+  font-family: "Poppins", sans-serif;
+  background-color: #1F2029;
+  letter-spacing: 0.5px;
+  font-size: 1.25rem;
+  font-weight: 200;
+  padding: 0.5rem;
+  outline: none;
+  color: #fff;
+  width: 25rem;
+}
+
+
+
+
+/*-----------------------------------------*/
+/*------------- BUTTON STYLES -------------*/
+/*-----------------------------------------*/
+
+.input-buttons-container {
+  grid-template-columns: repeat(2, auto);
+  justify-content: stretch;
+  align-items: center;
+  margin-top: 0.25rem;
+  gap: 1.5rem 1rem;
+  display: grid;
+}
+
+.input-button {
+  transition: background-color 450ms, translate 150ms, box-shadow 150ms;
+  box-shadow: 4px 4px 0 #00000070;
+  justify-content: center;
+  grid-auto-flow: column;  
+  border-radius: 2.5px;
+  align-items: center;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  display: grid;
+  border: none;
+  gap: 0.5rem;
+}
+
+.input-button.login {
+  background-color: #8400ff;
+  border-radius: 2px;
+  transition: all 200ms linear;
+}
+
+.input-button.reset {
+  background-color: #d50047;
+}
+
+.input-button-image {
+  transition: filter 450ms;
+  width: 20px;
+}
+
+.input-button.reset .input-button-image {
+  width: 18px;
+}
+
+.input-button-text {
+  font-family: "Poppins", sans-serif;
+  transition: color 450ms;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #fff;
+  
+}
+
+.account-image {
+  filter: drop-shadow(4px 4px 0);
+  width: 400px;
+  padding-top: 3rem;
+}
+
+/*---------------------------------------*/
+/*----------- FORM CONTROLLER -----------*/
+/*---------------------------------------*/
+
+.form-switch-button {
+  transition: background-color 450ms;
+  border: 2px solid #e0bf00;
+  box-shadow: 2.5px 2.5px 0;
+  justify-content: center;
+  grid-auto-flow: column;
+  align-items: center;
+  border-radius: 40px;
+  grid-column: span 2;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-switch-button-text {
+  font-family: "Poppins", sans-serif;
+  transition: color 450ms;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #fff;
+}
+
+.form-switch-button-image {
+  transition: filter 450ms;
+  width: 20px;
+}
+
+/*------------------------------------------*/
+/*--------------- ANIMATIONS ---------------*/
+/*------------------------------------------*/
+
+.register-hide {
+  animation: RegisterHide 400ms forwards;
+}
+
+.register-reveal {
+  animation: RegisterReveal 400ms forwards;
+}
+
+@keyframes RegisterHide {
+  0% {
+    translate: 0;
+    opacity: 1;
+  }
+
+  100% {
+    translate: -25px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes RegisterReveal {
+  0% {
+    translate: 25px 0;
+    opacity: 0;
+  }
+
+  100% {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+/*-------------------------------------------*/
+/*--------------- TRANSITIONS ---------------*/
+/*-------------------------------------------*/
+
+.input-button:focus { 
+  translate: 0 4px;
+  box-shadow: 0 0;
+}
+
+.input-button.login:hover {
+  background-color: #8400ff;
+  filter: drop-shadow(0 0 0.5rem #a143f9);
+}
+
+.input-button.login:focus {
+  background-color: #450482;
+}
+
+.input-button.reset:hover {
+  background-color: #ab0039;
+}
+
+.input-button.reset:focus {
+  background-color: #85002c;
+}
+
+.form-switch-button:hover {
+  background-color: #e0bf00;
+}
+
+.form-switch-button:hover .form-switch-button-text {
+  color: #000;
+}
+
+.form-switch-button:hover .form-switch-button-image {
+  filter: invert(1);
+}
+
+/*--------------------------------------------------*/
+/*------------------- END OF CSS -------------------*/
+/*--------------------------------------------------*/

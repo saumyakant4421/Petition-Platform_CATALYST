@@ -1,0 +1,40 @@
+<nav>
+    
+    <article class = "nav-links-container">
+        <div class = "nav-choice-containers">
+            <% header.choice.forEach((list) => { %>
+                <a class = "nav-links" href="<%= list.url %>">
+                    <p class = "nav-link-text"><%= list.name %></p>
+                </a>
+            <% }) %>
+        </div>
+
+        <div class="nav-logo">
+            <img class="nav-logo-img" src="/logo.png"/>
+        </div>
+
+        <div class = "personal-auth-container">
+            <% if(account !== undefined) { %>
+                <a class="nav-petition-link" href="">
+                    <img class="nav-petition-link-image" src="/personal.png" />
+                    <p class="nav-petition-link-text">My Petitions</p>
+                  </a>
+              
+                  <div class="nav-profile-container">
+                    <img class="nav-profile-image" src="/profile.png" />
+                    <h3 class="nav-profile-username" src=""><%= username %>saumyakant4421</h3>
+                  </div>
+                  <% } else { %>
+                  <a class="nav-register-link" href="#account-section">
+                    <img class="nav-register-link-image" src="/signup.png" />
+                    <p class="nav-register-link-text">Register/Login</p>
+                  </a>
+                  <div class ="nav-about">
+                    <img class = "nav-about-image" src = "#">
+                    <p class = "nav-about-text">About</p>
+                  </div>
+                  <% } %>
+        </div>
+    </article>
+</nav>
+  
