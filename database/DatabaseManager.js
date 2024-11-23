@@ -4,10 +4,13 @@ const mongoose = require("mongoose");
 module.exports.ConnectDatabase = async () => {
     try {
         await mongoose.connect(
-            `${process.env.MONGODB_URL}/${process.env.DATABASE}`,
+            `${process.env.MONGODB_URI}/${process.env.DATABASE}`,
             {
                 ssl: true,
-                sslValidate: false,  // Disable SSL certificate validation for testing
+                // sslValidate: true,  // Disable SSL certificate validation for testing
+                // useNewUrlParser: true,
+                // useUnifiedTopology: true,
+                
                 retryReads: true,
                 retryWrites: true,
             }
