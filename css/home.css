@@ -4,6 +4,8 @@
 @import url("./home/categories.css");
 @import url("./home/inspired.css");
 @import url("./home/account.css");
+@import url("./home/insights.css");
+@import url("./home/featured.css");
 
 
 * {

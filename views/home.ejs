@@ -47,8 +47,14 @@
             <section id="account-section">
               <%- include("./home/account.ejs") %>
             </section>
-        <% } %>
         
+        <section id = "insights-section">
+            <%- include("./home/insights.ejs", {users_counts, sign_counts, petition_counts}) %>
+        </section>
+        <% } %>
+        <section id = "home-petitions">
+            <%- include("./home/featured-petitions.ejs") %>
+        </section>
 
     </main>
      HELLO!
