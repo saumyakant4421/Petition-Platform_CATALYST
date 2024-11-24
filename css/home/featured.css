@@ -1,18 +1,11 @@
 #home-petition{
     margin: 0rem;
     padding:0rem;
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
-    background-position: center;
-    background-repeat: repeat;
-    background-size: 8%;
-
 }
-
-
 
 #featured-petitions {
     margin: 1rem 0;
-    height:36rem;
+    height:37rem;
     align-items:center;
     border: 1px solid beige;
     justify-content: center;
@@ -29,7 +22,7 @@
   .scroll-container {
     display: flex;
     overflow-x: auto;
-    gap: 1rem;
+    gap: 1.5rem;
     padding: 1rem;
     scroll-behavior: smooth;
     align-items:center;
@@ -42,14 +35,13 @@
     color:rgb(255, 255, 255);
     font-weight: 400;
     /* margin-top: 0rem; */
-
   }
 
 
   
   .petition-card {
     width: 24rem;
-    height:27rem;
+    height:27.5rem;
     background-color: #2a2b38;
     padding: 1rem;
     border-radius: 8px;
@@ -63,28 +55,25 @@
     background-size: 300%;
     background-position: bottom center;
     
-    
   }
 
   h3.petition-title-f {
-    display: -webkit-box;              /* Enable WebKit flex container behavior */
-    -webkit-box-orient: vertical;      /* Orient the box vertically for WebKit */
-    -webkit-line-clamp: 2;             /* Limit to 2 lines (adjust as needed) */
-    overflow: hidden;                  /* Hide overflowing text */
-    text-overflow: ellipsis;           /* Show ellipsis for clipped text */
-    
-    max-width: 23rem;                  /* Restrict the width of the container */
-    height: 4rem;                      /* Fixed height to fit the text */
-    text-align: center;                /* Center-align text horizontally */
-    font-size: 1.40rem;                /* Adjust the font size */
-    line-height: 1.2;                  /* Adjust line spacing for better readability */
-    margin: 0 auto;                    /* Center the element horizontally in its container */
-    
-    display: flex;                     /* Enable Flexbox layout for centering */
-    align-items: center;               /* Center content vertically */
-    justify-content: center;           /* Center content horizontally */
+    display: -webkit-box;              
+    -webkit-box-orient: vertical;     
+    -webkit-line-clamp: 2;           
+    overflow: hidden;  
+    text-overflow: ellipsis;    
+    max-width: 23rem;                
+    height: 4rem;             
+    text-align: center;         
+    font-size: 1.40rem;
+    line-height: 1.2;    
+    margin: 0 auto;                    
+    display: flex;                   
+    align-items: center;   
+    justify-content: center; 
     padding: 1rem;     
-    font-weight: 400;              /* Add padding for better appearance */
+    font-weight: 400;              
   }
   
 
