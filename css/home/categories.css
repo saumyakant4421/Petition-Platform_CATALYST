@@ -1,6 +1,11 @@
 #categories-section {
     height: 35rem;
     border: 1px solid beige;
+    /* background-color: #2a2b38; */
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+    background-repeat: no-repeat;
+    background-size: 300%;
+    background-position: bottom center;
 }
 
 .categories-viz {
@@ -40,9 +45,6 @@ h1{
     height: 36rem;
     width:auto;
 }
-
-
-
 
 
 /* BUTTONS */

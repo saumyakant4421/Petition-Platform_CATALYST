@@ -6,6 +6,7 @@
 @import url("./home/account.css");
 @import url("./home/insights.css");
 @import url("./home/featured.css");
+@import url("./home/startpetition.css");
 
 
 * {
@@ -22,7 +23,7 @@ body {
     position: relative;
     z-index: -2;
     max-width: 100vw; 
-    overflow-x: hidden;
+    overflow-x: hidden; 
 }
 
 
