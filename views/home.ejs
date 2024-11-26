@@ -34,6 +34,9 @@
         <section id = "marquee-section">
             <%- include("./home/marquee.ejs") %>
         </section>
+        <section id = "start-petition-section">
+          <%- include("./home/start-petitions.ejs") %>
+        </section>  
 
         <section id = "categories-section">
             <%- include("./home/categories.ejs") %>
@@ -41,27 +44,25 @@
 
         <section id = "inspired-section">
             <%- include("./home/inspired.ejs") %>
-        </section>
-        
+        </section> 
 
         <% if(account === undefined) { %>
             <section id="account-section">
               <%- include("./home/account.ejs") %>
             </section>
-    
-        <section id = "start-petition-section">
-              <%- include("./home/start-petitions.ejs") %>
-        </section>   
-    
+        <% } %>
+
         <section id = "home-petitions">
           <%- include("./home/featured-petitions.ejs") %>
         </section>
+
         <section id = "insights-section">
             <%- include("./home/insights.ejs", {users_counts, sign_counts, petition_counts}) %>
         </section>
-        <% } %>
-
-
+        
+        <section id = "footer-section">
+          <%- include("./home/footer.ejs") %>
+        </section>
 
     </main>
      HELLO!
