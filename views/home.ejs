@@ -45,6 +45,9 @@
         <section id = "inspired-section">
             <%- include("./home/inspired.ejs") %>
         </section> 
+        <section id = "insights-section">
+          <%- include("./home/insights.ejs", {users_counts, sign_counts, petition_counts}) %>
+      </section>
 
         <% if(account === undefined) { %>
             <section id="account-section">
@@ -56,9 +59,7 @@
           <%- include("./home/featured-petitions.ejs") %>
         </section>
 
-        <section id = "insights-section">
-            <%- include("./home/insights.ejs", {users_counts, sign_counts, petition_counts}) %>
-        </section>
+
         
         <section id = "footer-section">
           <%- include("./home/footer.ejs") %>
