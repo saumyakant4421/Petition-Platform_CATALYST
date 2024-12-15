@@ -30,12 +30,16 @@ liveReloadServer.server.once("connection", () => {
     }, 100);
 });
 
+// Error handler route
+
+
 // Importing route files
 const homeRoute = require("./routes/home.js");
-const userRoute = require("./routes/user.js");
-const authRoute = require("./routes/auth.js");
-const petitionRoute = require("./routes/petition.js");
-const categoryRoute = require("./routes/category.js");
+const accountRoute = require("./routes/account.js");
+const errorRoute = require("./routes/error.js");
+// const authRoute = require("./routes/auth.js");
+// const petitionRoute = require("./routes/petition.js");
+// const categoryRoute = require("./routes/category.js");
 
 app.use(bodyparser.urlencoded({ extended: true }));  // Corrected the extended type
 
@@ -69,6 +73,8 @@ ConnectDatabase();
 
 // Use routes
 app.use("/", homeRoute);
+app.use("/account", accountRoute);
+app.use("/error", errorRoute);
 // Uncomment routes when needed
 // app.use("/user", userRoute);
 // app.use("/auth", authRoute); 

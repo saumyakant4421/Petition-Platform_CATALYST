@@ -16,13 +16,13 @@
         <div class = "personal-auth-container">
             <% if(account !== undefined) { %>
                 <a class="nav-petition-link" href="">
-                    <img class="nav-petition-link-image" src="/personal.png" />
+                    <img class="nav-petition-link-image" src="/archives.png" />
                     <p class="nav-petition-link-text">My Petitions</p>
                   </a>
               
                   <div class="nav-profile-container">
-                    <img class="nav-profile-image" src="/profile.png" />
-                    <h3 class="nav-profile-username" src=""><%= username %>saumyakant4421</h3>
+                    <img class="nav-profile-image" src="/user.png" />
+                    <h3 class="nav-profile-username" src=""><%= username %></h3>
                   </div>
                   <% } else { %>
                   <a class="nav-register-link" href="#account-section">
@@ -30,10 +30,12 @@
                     <p class="nav-register-link-text">Register/Login</p>
                   </a>
                   <div class ="nav-about">
-                    <img class = "nav-about-image" src = "#">
+                  <a class="nav-about-link" href="#account-section">
+                    <img class = "nav-about-image" src = "/about.png"/>
                     <p class = "nav-about-text">About</p>
-                  </div>
-                  <% } %>
+                  </a>
+                </div>
+            <% } %>
         </div>
     </article>
 </nav>
