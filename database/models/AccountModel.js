@@ -1,59 +1,78 @@
-const {Schema, model} = require("mongoose");
+const { Schema, model } = require("mongoose");
 
+// Petition Schema
 const PetitionSchema = new Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    image: { type: String, required: true }, // URL to the image
-    category: {
-      type: [String],
-      enum: [
-        "Environment",
-        "Economic Justice",
-        "Women's Rights",
-        "Education",
-        "Disability",
-        "Sports",
-        "Entertainment and Media",
-        "Digital Rights",
-      ],
-      required: true,
-      validate: {
-        validator: (v) => v.length > 0, // At least one category required
-        message: "At least one category must be selected.",
-      },
-    },
-    scope: {
-      type: String,
-      enum: ["Local", "Global", "National"],
-      required: true,
-    },
-    authors: [{ type: String, required: true }], // Array of author names
-    targetEntities: [{ type: String, required: true }], // Renamed field
-    supporters: [
-      {
-        userId: { type: Schema.Types.ObjectId, ref: "account" },
-        signedAt: { type: Date, default: Date.now },
-      },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  image: { type: String, default: "" },
+  category: {
+    type: [String],
+    enum: [
+      "Environment",
+      "Economic Justice",
+      "Women's Rights",
+      "Education",
+      "Disability",
+      "Sports",
+      "Entertainment and Media",
+      "Digital Rights",
     ],
-    createdAt: { type: Date, default: Date.now },
-    status: {
-      type: String,
-      enum: ["active", "closed"],
-      default: "active",
+    required: true,
+    validate: {
+      validator: (v) => v.length > 0,
+      message: "At least one category must be selected.",
     },
-  });
-  
-//   const Petition = model("Petition", PetitionSchema);
-//   module.exports = Petition;
-   
+  },
+  scope: {
+    type: String,
+    enum: ["Local", "Global", "National"],
+    required: true,
+  },
+  authors: [{ type: String, required: true }],
+  targetEntities: [{ type: String, required: true }],
+  targetSupporters: {
+    type: Number,
+    required: true,
+    min: [1, "Target supporters must be at least 1"],
+  },
+  supporters: [
+    {
+      userId: { type: Schema.Types.ObjectId, ref: "Account" },
+      signedAt: { type: Date, default: Date.now },
+    },
+  ],
+  creatorId: {
+    type: Schema.Types.ObjectId,
+    ref: "Account",
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["active", "success", "closed"],
+    default: "active",
+  },
+  createdAt: { type: Date, default: Date.now },
+});
 
-  const AccountSchema = new Schema({
-    username: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    signedPetitions: [{ type: Schema.Types.ObjectId, ref: "Petition" }], // Array of references to petitions
-  });
-  
-  const Account = model("Account", AccountSchema);
-  module.exports = Account;
-  
+// Middleware to update the status if supporters reach the target
+PetitionSchema.pre("save", function (next) {
+  if (this.supporters.length >= this.targetSupporters) {
+    this.status = "success";
+  }
+  next();
+});
+
+// Account Schema
+const AccountSchema = new Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  signedPetitions: [{ type: Schema.Types.ObjectId, ref: "Petition" }],
+  createdPetitions: [{ type: Schema.Types.ObjectId, ref: "Petition" }], // New field for petitions created
+});
+
+// Export Models
+const Petition = model("Petition", PetitionSchema);
+const Account = model("Account", AccountSchema);
+
+module.exports = { Petition, Account };

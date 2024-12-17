@@ -1,4 +1,4 @@
-const accountModel = require("../models/AccountModel.js");
+const {Account} = require("../models/AccountModel.js");
 const bcrypt = require("bcrypt");
 
 module.exports.DatabaseCreateAccount = async (credentials, request) => {
@@ -9,7 +9,7 @@ module.exports.DatabaseCreateAccount = async (credentials, request) => {
     }
 
     // Check if an account with the email already exists
-    const databaseAccount = await accountModel.findOne({ email: credentials.email });
+    const databaseAccount = await Account.findOne({ email: credentials.email });
     if (databaseAccount) {
       return { success: false, message: "Account already exists" };
     }
@@ -18,7 +18,7 @@ module.exports.DatabaseCreateAccount = async (credentials, request) => {
     const encryptedPassword = await bcrypt.hash(credentials.password, 10);
 
     // Create and save the new account
-    const account = new accountModel({
+    const account = new Account({
       username: credentials.username,
       email: credentials.email,
       password: encryptedPassword,

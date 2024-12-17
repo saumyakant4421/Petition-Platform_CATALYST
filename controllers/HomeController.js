@@ -1,6 +1,6 @@
 const HomeData = require("../json/home.json");
 const petitionsData = require("../json/petitions.json"); // Static JSON fallback
-const Petition = require("../database/models/petition.js"); // Uncomment when using database
+const {Petition} = require("../database/models/AccountModel.js"); // Uncomment when using database
 const footerData = require("../json/footer.json");
 
 const home = async (req, res) => {
@@ -23,6 +23,7 @@ const home = async (req, res) => {
       username: req.session.username,
       account: req.session.email,
       featuredPetitions,
+      userPetitions, // Include user-created petitions
       users_counts,
       sign_counts,
       petition_counts,
@@ -39,6 +40,7 @@ const home = async (req, res) => {
       username: req.session.username,
       account: req.session.email,
       featuredPetitions: petitionsData, // Fallback to static JSON
+      userPetitions: [],
       users_counts: 0,
       sign_counts: 0,
       petition_counts: 0,

@@ -7,7 +7,7 @@
                 "name": "Sign Petitions"
             },
             {
-                "URL": "",
+                "URL": "#start-petition-section",
                 "name": "Start Petition"                
             }
         ]
@@ -16,34 +16,42 @@
      
         {
             "title": "Environment",
+            "icon":"leaf",
             "description": "Addressing critical environmental issues to promote sustainability and protect our planet for future generations."
         },
         {
             "title": "Economic Justice",
+            "icon":"analytics",
             "description": "Advocating for equitable financial systems and opportunities to reduce poverty and economic disparities."
         },
         {
             "title": "Women's Rights",
+            "icon":"female",
             "description": "Championing equality, safety, and empowerment for women in all aspects of life."
         },
         {
             "title": "Education",
+            "icon":"school",
             "description": "Promoting access to quality education for all as a foundation for personal and societal growth."
         },
         {
             "title": "Disability",
+            "icon":"accessibility",
             "description": "Ensuring inclusion, accessibility, and equal opportunities for people with disabilities."
         },
         {
             "title": "Sports",
+            "icon":"football-outline",
             "description": "Encouraging the growth of sports and recreation for health, unity, and talent development."
         },
         {
             "title": "Entertainment and Media",
+            "icon":"videocam-outline",
             "description": "Promoting creativity, cultural expression, and responsible media to inspire and inform society."
         },
         {
             "title": "Digital Rights",
+            "icon":"globe-outline",
             "description": "Safeguarding individuals' access, privacy, and freedom on online platforms, ensuring fair and equitable participation in the digital age."
         }
          

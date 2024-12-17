@@ -4,18 +4,16 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const session = require("express-session");
 const memoryStore = require("memorystore")(session);
-const livereload = require('livereload');
-const connectLivereload = require('connect-livereload');
-const path = require('path'); // Ensure path is imported
+const livereload = require("livereload");
+const connectLivereload = require("connect-livereload");
+const path = require("path"); // Ensure path is imported
 
 const app = express();
 
 const { ConnectDatabase } = require("./database/DatabaseManager.js");
 
-app.use(connectLivereload());
-
-// Create a livereload server to watch static files
-const liveReloadServer = livereload.createServer();
+// LiveReload setup for development
+global.liveReloadServer = livereload.createServer();
 liveReloadServer.watch([
     path.join(__dirname), // Watch the root directory
     path.join(__dirname, 'css'),  // Watch the 'css' directory
@@ -30,25 +28,29 @@ liveReloadServer.server.once("connection", () => {
     }, 100);
 });
 
-// Error handler route
+// Add livereload middleware
+app.use(connectLivereload());
 
+// Error handler route
+// To be configured based on actual requirements
 
 // Importing route files
 const homeRoute = require("./routes/home.js");
 const accountRoute = require("./routes/account.js");
 const errorRoute = require("./routes/error.js");
+const petitionRoute = require("./routes/petition.js");
 // const authRoute = require("./routes/auth.js");
-// const petitionRoute = require("./routes/petition.js");
 // const categoryRoute = require("./routes/category.js");
 
+// Middleware for parsing request bodies
 app.use(bodyparser.urlencoded({ extended: true }));  // Corrected the extended type
 
 // Session configuration
 app.use(
     session({
-        secret: "Catalyst",
+        secret: "Catalyst", // Replace with a secure value in production
         cookie: {
-            secure: false,
+            secure: false, // Should be true in production when using HTTPS
             maxAge: 86400000, // 24 hours
         },
         store: new memoryStore({
@@ -59,7 +61,7 @@ app.use(
     })
 );
 
-// Serve static files from root or a public folder
+// Serve static files from specific directories
 app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'json')));
 app.use(express.static(path.join(__dirname, 'javascript')));
@@ -71,17 +73,22 @@ app.set("view engine", "ejs");
 // Establish MongoDB connection
 ConnectDatabase();
 
-// Use routes
+// Use imported routes
 app.use("/", homeRoute);
 app.use("/account", accountRoute);
 app.use("/error", errorRoute);
+app.use("/petition", petitionRoute);
 // Uncomment routes when needed
 // app.use("/user", userRoute);
 // app.use("/auth", authRoute); 
-// app.use("/category",categoryRoute);
-// app.use("/petition",petitionRoute);
+// app.use("/category", categoryRoute);
+
+// Fallback for invalid routes
+app.use((req, res) => {
+    res.status(404).send("Page not found");
+});
 
 // Start the server
 app.listen(process.env.DEVELOPMENT_PORT || process.env.PORT, () => {
-    console.log(`PORT: ${process.env.DEVELOPMENT_PORT} | ACTIVE`);
+    console.log(`PORT: ${process.env.DEVELOPMENT_PORT || process.env.PORT} | ACTIVE`);
 });

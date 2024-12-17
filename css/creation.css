@@ -1,0 +1,422 @@
+@import url("./error/navbar.css");
+
+*{
+    scroll-behavior: smooth;
+    text-decoration: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-image: url("/creation/cloud-bg.jpg");
+    background-repeat:repeat-y;
+    background-size: 300%;
+    position: relative;
+    overflow-y: auto;
+    height: 100vh;
+    background-blend-mode:color-burn;
+    
+}
+
+#header-creation{
+    position:sticky;
+    top: 0;
+}
+
+#creation-section{
+    align-items: flex-start;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
+    /* top: 0rem;
+    left:0;
+    
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-top: 5rem; */
+    /* overflow-y: scroll; */
+    /* height: 100vh; */
+    /* padding: 2rem; */
+    /* background-color: rgba(0, 0, 0, 0.5);  */
+}
+
+
+.main-creation{
+    align-items: center;
+    justify-content: center;
+    display: flex; 
+    flex-direction: column;
+    /* gap: 1rem; */
+    /* overflow-y: scroll;  */
+    background-color: #1d1e23;
+    width: 100%;
+    max-width: 55rem;
+    /* height: 90rem; */
+    position: relative;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+    background-repeat: no-repeat;
+    background-size: 300%;
+    background-position: bottom center;
+    box-shadow: 10px 10px black;
+    color: beige;
+    font-family: "Poppins", sans-serif;
+    margin: 2rem 0;
+    /* top: 1.25rem; */
+}
+
+h5{
+    font-size: 3rem;
+    color: #8E65EE;
+    margin-top: 4rem;
+    /* top: 0rem; */
+}
+
+h3{
+    margin-top: 1.25rem;
+}
+
+
+form{
+    padding-top: 0.45rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+/* Scope and Category Container */
+/*******************/
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 10rem; */
+    
+}
+  
+.radio-tile-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.input-container {
+  position: relative;
+  height: 5.5rem;
+  width: 6rem;
+  margin: 1rem;
+}
+
+.input-container input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+
+.input-container .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 2px solid #8E65EE;
+  border-radius: 8px;
+  transition: all 300ms ease;
+}
+
+.input-container ion-icon {
+  color: white;
+  font-size: 1.8rem;
+}
+
+.input-container label {
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  /* height: 100%; */
+  text-align: center;
+}
+
+input:checked+.radio-tile {
+  background-color:#865DD7;
+  box-shadow: 0 0 12px black;
+  transform: scale(1.1);
+}
+
+input:hover+.radio-tile {
+  box-shadow: 0 0 12px #a25ddf;
+}
+
+input:checked+.radio-tile ion-icon,
+input:checked+.radio-tile label {
+  color: white;
+}
+
+/*****************************************/
+
+.inputBox {
+    /* top: 2rem; */
+    position: relative;
+    width: 730px;
+    /* left:30px; */
+}
+
+.inputBox input{
+   width:100%;
+   padding:10px;
+   border:1px solid rgba(255,255,255,0.25);
+   background:#dddddd;
+   border-radius: 5px;
+   outline:none;
+   color:black;
+   font-size:1em;
+   transition:0.5s;
+}
+
+.inputBox span{
+  position: relative;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
+  
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span
+{
+    background:#8E65EE;
+    color:#1d2b3a;
+    border-radius: 2px;
+    transform: translateX(10px) translateY(-7px);
+    font-size:0.65em;
+    padding:0.10px;
+    letter-spacing:0.2em;
+}
+
+.inputBox input:valid ,
+.inputBox input:focus 
+{
+    border:2px solid #8E65EE; 
+}
+
+.textarea {
+   background-color: #dddddd;
+   color: #666666;
+   padding: 0.5em;
+   border-radius: 10px;
+   border: 2px solid transparent;
+   outline: none;
+   font-family: "Ibarra Real Nova", serif;
+   font-weight: 500;
+   font-size: 16px;
+   line-height: 1.1;
+   width: 45.6rem;
+   height: 100px;
+   transition: all 0.2s;
+   margin-top: 40px;
+}
+  
+.textarea:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.textarea:focus {
+  cursor: text;
+  color: #333333;
+  background-color: white;
+  border: 3px solid #8E65EE;
+}
+
+
+/* last four details */
+/* ********************************* */
+.input-con1,
+.input-con2,
+.input-con3,
+.input-con4,
+.input-con5 {
+    margin-top: 2rem; /* Use margin instead of top */
+    width: 46rem;
+    position: relative; /* Keep them in the flow of the document */
+    height: 2.10em;
+}
+
+.label {
+  position: absolute;
+  left:10px;
+  top:14px;
+  transition:all 0.2s;
+  padding: 0 2px;
+  z-index:1;
+  color:#f1f1f1
+}
+
+.text-input {
+  padding:0.4rem;
+  width:100%;
+  height:100%;
+  border: 2px solid white;
+  background: #272530;
+  border-radius: 5px;
+  font-size: 18px;
+  outline: none;
+  transition:all .3s;
+  color:#fff;
+  font-family:  "Ibarra Real Nova", serif; 
+}
+
+.label::before {
+  content: "";
+  height:5px;
+  background-color: #272530;
+  position: absolute;
+  left: 0;
+  top:10px;
+  width:100%;
+  z-index:-1;
+
+}
+.text-input:focus ~ .label,
+.text-input:not(:placeholder-shown).text-input:not(:focus) ~ .label {
+top: -0.5rem;
+font-size: 0.9rem;
+left: 0.8rem;
+}
+
+.text-input:focus {
+  border: 2px solid #8E65EE;
+
+}
+.text-input:focus+.label,
+.filled {
+   top:-10px;
+   color:#8E65EE;
+   font-size: 16px;
+  
+}
+
+.text-input::placeholder{
+  font-size: 16px;
+  opacity: 0 ;
+  transition: all .3s;
+  font-family:  "Ibarra Real Nova", serif; 
+}
+
+.text-input:focus::placeholder{
+  opacity: 1;
+  animation-delay:0.2s;
+}
+
+.text-input:not(:placeholder-shown):not(:focus) ~ .label {
+  opacity: 0; /* Hide label when data is entered and input is not focused */
+}
+
+/* submit button */
+/* *************************** */
+
+.button {
+  /* position: relative; */
+  margin-top: 2rem;
+  /* top: 1305px;
+  right: 350px; */
+  margin-bottom: 3rem;
+}
+
+.button input[type="submit"] {
+  background-color: indigo;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.button input[type="submit"]:hover {
+  background-color: darkviolet;
+}
+
+.button input[type="submit"]:active {
+  background-color: darkviolet;
+  transform: translateY(2px);
+}
+
+
+/* image button  */
+/* ******************** */
+
+/* Petition Image Container */
+.petition-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: sans-serif;
+  /* margin: 1rem 0; */
+  margin-top: 2rem;
+}
+
+/* Hide the file input field */
+.image-pet {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Style the label as a button */
+.image-p {
+  background-color: #dddddd;
+  color: rgb(58, 58, 58);
+  padding: 0.5rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+/* Hover effect for better interactivity */
+.image-p:hover {
+  background-color: #eeeeee;
+}
+
+/* Accessibility: Focus state for keyboard users */
+.image-p:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Style the file name display */
+.file-name {
+  font-size: 0.9rem;
+  color: gray;
+  font-style: italic;
+}
