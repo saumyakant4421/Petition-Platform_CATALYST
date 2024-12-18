@@ -1,6 +1,6 @@
 <div class="main-creation">
     <h5>Petition Details</h5>
-    <form action="/petition/create" method="post">
+    <form action="/petition/create" method="post" enctype="multipart/form-data">
         <!-- Petition Scope -->
         <h3>What is the scope of your petition?</h3>
         <div class="container">
@@ -85,7 +85,7 @@
         </div> 
         <div class="petition-image">
             <label for="image" class="image-p">Upload Image</label>
-            <input type="file" class="image-pet" name="image" accept="image/*" id="image" />
+            <input type="file" class="image-pet" name="image" accept="image/*" id="image" required/>
             <p class="file-name">No file chosen</p>
         </div>
         

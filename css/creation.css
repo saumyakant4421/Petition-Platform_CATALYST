@@ -31,16 +31,6 @@ body{
     width: 100%;
     position: relative;
     overflow-y: auto;
-    /* top: 0rem;
-    left:0;
-    
-    overflow-y: auto;
-    box-sizing: border-box;
-    margin-top: 5rem; */
-    /* overflow-y: scroll; */
-    /* height: 100vh; */
-    /* padding: 2rem; */
-    /* background-color: rgba(0, 0, 0, 0.5);  */
 }
 
 
@@ -49,8 +39,6 @@ body{
     justify-content: center;
     display: flex; 
     flex-direction: column;
-    /* gap: 1rem; */
-    /* overflow-y: scroll;  */
     background-color: #1d1e23;
     width: 100%;
     max-width: 55rem;
@@ -64,14 +52,12 @@ body{
     color: beige;
     font-family: "Poppins", sans-serif;
     margin: 2rem 0;
-    /* top: 1.25rem; */
 }
 
 h5{
     font-size: 3rem;
     color: #8E65EE;
     margin-top: 4rem;
-    /* top: 0rem; */
 }
 
 h3{
@@ -95,8 +81,6 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 10rem; */
-    
 }
   
 .radio-tile-group {
@@ -334,10 +318,7 @@ left: 0.8rem;
 /* *************************** */
 
 .button {
-  /* position: relative; */
   margin-top: 2rem;
-  /* top: 1305px;
-  right: 350px; */
   margin-bottom: 3rem;
 }
 
@@ -375,7 +356,6 @@ left: 0.8rem;
   align-items: center;
   gap: 1rem;
   font-family: sans-serif;
-  /* margin: 1rem 0; */
   margin-top: 2rem;
 }
 

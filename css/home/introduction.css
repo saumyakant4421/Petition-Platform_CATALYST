@@ -22,7 +22,6 @@
 .introduction-image{
     object-fit: contain;
     height: 35rem;
-    /* mix-blend-mode:difference; */
     width: auto;
 }
 

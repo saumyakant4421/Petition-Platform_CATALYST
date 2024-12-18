@@ -19,6 +19,11 @@ const home = async (req, res) => {
       featuredPetitions = petitionsData;
     }
 
+    const userPetitions = await Petition.find({ creatorId: req.session.userId });
+    if (!userPetitions) {
+        return res.status(404).send("No petitions found.");
+    }
+
     const home = {
       username: req.session.username,
       account: req.session.email,

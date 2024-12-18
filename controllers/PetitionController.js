@@ -1,19 +1,17 @@
 const HomeData = require("../json/home.json"); // Ensure this path is correct
-const {Petition, Account} = require("../database/models/AccountModel.js");
+const { Petition, Account } = require("../database/models/AccountModel.js");
+const { bucket } = require("../firebase"); // Firebase bucket for storage
 
 exports.startPetition = (req, res) => {
-    // Access categories directly from HomeData (no need to read the file)
     const categories = HomeData.templates;
-    const icons = HomeData.icons
+    const icons = HomeData.icons;
 
-    // Render the petition creation form with categories loaded from JSON
     res.render('creation', {
-        templates: categories, // Pass categories to the template
-        icons: icons,  
-        user: req.session.account // Pass user data to the template
+        templates: categories,
+        icons: icons,
+        user: req.session.account
     });
 };
-
 
 exports.createPetition = async (req, res) => {
     try {
@@ -27,7 +25,7 @@ exports.createPetition = async (req, res) => {
             petition_by,
             petition_date,
             location,
-            targetSupporters, // Added field
+            targetSupporters,
         } = req.body;
 
         // Check if user is logged in
@@ -35,8 +33,46 @@ exports.createPetition = async (req, res) => {
             return res.status(401).send("Unauthorized: Please log in to create a petition.");
         }
 
-        if (!title || !description || !category || !petition_to || !petition_by || !petition_date || !location) {
+        // Validate required fields
+        if (!title || !description || !category || !petition_to || !petition_by || !petition_date || !location || !targetSupporters) {
             return res.status(400).send("All fields are required.");
+        }
+
+        const petitionToArray = petition_to
+        .split(",")            // Split the string by commas
+        .map(entity => entity.trim());  // Trim spaces around each entity
+
+        // Default image URL
+        let imageUrl = "";
+
+        // Handle image upload if file exists
+        if (req.file) {
+            const file = bucket.file(`petitions/${Date.now()}_${req.file.originalname}`);
+            const stream = file.createWriteStream({
+                metadata: {
+                    contentType: req.file.mimetype,
+                },
+            });
+
+            // This is now wrapped in a promise to wait for the finish event before continuing
+            await new Promise((resolve, reject) => {
+                stream.on('error', (err) => {
+                    console.error("Error uploading to Firebase:", err.message);
+                    reject(new Error("Image upload failed."));
+                });
+
+                stream.on('finish', async () => {
+                    try {
+                        await file.makePublic();
+                        imageUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
+                        resolve();
+                    } catch (err) {
+                        reject(new Error("Error making image public."));
+                    }
+                });
+
+                stream.end(req.file.buffer);
+            });
         }
 
         // Prepare the new petition object
@@ -44,14 +80,14 @@ exports.createPetition = async (req, res) => {
             title,
             description,
             category: Array.isArray(category) ? category : [category],
-            scope: req.body.scope || "Local", // Default to Local
+            scope: req.body.scope || "Local",
             authors: [petition_by],
-            targetEntities: [petition_to],
+            targetEntities: petitionToArray,  
             createdAt: new Date(),
-            targetSupporters: targetSupporters, // Added targetSupporters
-            creatorId: req.session.userId, // Automatically assign creator ID
+            targetSupporters: targetSupporters,
+            creatorId: req.session.userId,
             supporters: [],
-            image: "",
+            image: imageUrl, // Set image URL
         };
 
         // Save petition to database
