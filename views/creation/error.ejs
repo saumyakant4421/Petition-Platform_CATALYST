@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Petition Error</title>
+    <link rel="stylesheet" href="/creation/error.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"rel="stylesheet"/>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 20%;">
+        <h1>❌ Error!</h1>
+        <p><%= errorMessage %></p>
+
+        <div class="error-links-container">
+            <a class="error-link home" href="/">
+              <img class="error-link-image" src="/errors/homepage.png" />
+              <h4 class="error-link-text">Home</h4>
+            </a>
+        
+            <a class="error-link other" href="/petition/start">
+              <img class="error-link-image" src="/errors/reset.png" />
+              <h4 class="error-link-text">Retry</h4>
+            </a>
+          </div>
+    </div>
+</body>
+</html>
