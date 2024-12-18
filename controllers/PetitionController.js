@@ -1,6 +1,6 @@
-const HomeData = require("../json/home.json");
+const HomeData = require("../json/home.json"); // Ensure this path is correct
 const { Petition, Account } = require("../database/models/AccountModel.js");
-const { bucket } = require("../firebase");
+const { bucket } = require("../firebase"); // Firebase bucket for storage
 
 exports.startPetition = (req, res) => {
     const categories = HomeData.templates;
@@ -15,7 +15,7 @@ exports.startPetition = (req, res) => {
 
 exports.createPetition = async (req, res) => {
     try {
-        console.log(req.body); // Debugging form data
+        console.log(req.body); // Debug: Check form data
 
         const {
             title,
@@ -30,22 +30,17 @@ exports.createPetition = async (req, res) => {
 
         // Check if user is logged in
         if (!req.session.userId) {
-            return res.status(401).render('creation/error', {
-                errorMessage: "Unauthorized: Please log in to create a petition."
-            });
+            return res.status(401).send("Unauthorized: Please log in to create a petition.");
         }
 
         // Validate required fields
         if (!title || !description || !category || !petition_to || !petition_by || !petition_date || !location || !targetSupporters) {
-            return res.status(400).render('creation/error', {
-                errorMessage: "All fields are required."
-            });
+            return res.status(400).send("All fields are required.");
         }
 
-        // Convert target entities to an array
         const petitionToArray = petition_to
-            .split(",")
-            .map(entity => entity.trim());
+        .split(",")            // Split the string by commas
+        .map(entity => entity.trim());  // Trim spaces around each entity
 
         // Default image URL
         let imageUrl = "";
@@ -59,9 +54,10 @@ exports.createPetition = async (req, res) => {
                 },
             });
 
+            // This is now wrapped in a promise to wait for the finish event before continuing
             await new Promise((resolve, reject) => {
                 stream.on('error', (err) => {
-                    console.error("Error uploading image to Firebase:", err.message);
+                    console.error("Error uploading to Firebase:", err.message);
                     reject(new Error("Image upload failed."));
                 });
 
@@ -79,15 +75,14 @@ exports.createPetition = async (req, res) => {
             });
         }
 
-        // Prepare petition object
+        // Prepare the new petition object
         const newPetition = {
             title,
             description,
-            location,
             category: Array.isArray(category) ? category : [category],
             scope: req.body.scope || "Local",
             authors: [petition_by],
-            targetEntities: petitionToArray,
+            targetEntities: petitionToArray,  
             createdAt: new Date(),
             targetSupporters: targetSupporters,
             creatorId: req.session.userId,
@@ -105,18 +100,10 @@ exports.createPetition = async (req, res) => {
             { $push: { createdPetitions: petition._id } }
         );
 
-        console.log("Petition Created Successfully:", petition);
-
-        // Render the success page
-        res.render('creation/success', {
-            message: "Petition created successfully!",
-        });
+        console.log("Petition Created:", petition);
+        res.redirect('/petition/success');
     } catch (err) {
-        console.error("Error occurred during petition creation:", err.message);
-
-        // Render the error page
-        res.render('creation/error', {
-            errorMessage: err.message || "An unexpected error occurred."
-        });
+        console.error("Error occurred:", err.message);
+        res.status(500).send("Internal Server Error: " + err.message);
     }
 };

@@ -11,7 +11,7 @@ const { getStorage } = require("firebase/storage");
 
 // Initialize Firebase Admin SDK (for backend)
 if (admin.apps.length === 0) {
-  const serviceAccount = require('./config/catalyst-1d0af-firebase-adminsdk-8mf1h-02a251f834.json');
+  const serviceAccount = require('./config/catalyst-1d0af-firebase-adminsdk-8mf1h-e3ef26d0a4.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET, // Firebase storage bucket
