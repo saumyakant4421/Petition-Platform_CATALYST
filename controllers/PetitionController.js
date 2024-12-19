@@ -30,7 +30,9 @@ exports.createPetition = async (req, res) => {
 
         // Check if user is logged in
         if (!req.session.userId) {
-            return res.status(401).send("Unauthorized: Please log in to create a petition.");
+            return res.status(401).render('creation/error', {
+                errorMessage: "Unauthorized: Please log in to create a petition.",
+            });
         }
 
         // Validate required fields
@@ -79,6 +81,7 @@ exports.createPetition = async (req, res) => {
         const newPetition = {
             title,
             description,
+            location,
             category: Array.isArray(category) ? category : [category],
             scope: req.body.scope || "Local",
             authors: [petition_by],
@@ -101,9 +104,13 @@ exports.createPetition = async (req, res) => {
         );
 
         console.log("Petition Created:", petition);
-        res.redirect('/petition/success');
+        res.render('creation/success', {
+            message: "Petition created successfully!",
+        });
     } catch (err) {
         console.error("Error occurred:", err.message);
-        res.status(500).send("Internal Server Error: " + err.message);
+        res.render('creation/error', {
+            errorMessage: err.message || "An unexpected error occurred.",
+        });
     }
 };

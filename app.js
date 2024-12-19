@@ -39,8 +39,8 @@ const homeRoute = require("./routes/home.js");
 const accountRoute = require("./routes/account.js");
 const errorRoute = require("./routes/error.js");
 const petitionRoute = require("./routes/petition.js");
+const listingRoute = require("./routes/listing.js");
 // const authRoute = require("./routes/auth.js");
-// const categoryRoute = require("./routes/category.js");
 
 // Middleware for parsing request bodies
 app.use(bodyparser.urlencoded({ extended: true }));  // Corrected the extended type
@@ -69,7 +69,7 @@ app.use(express.static(path.join(__dirname, 'images')));
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
-
+app.set("views", __dirname + "/views");
 // Establish MongoDB connection
 ConnectDatabase();
 
@@ -78,10 +78,10 @@ app.use("/", homeRoute);
 app.use("/account", accountRoute);
 app.use("/error", errorRoute);
 app.use("/petition", petitionRoute);
+app.use("/listing", listingRoute);
 // Uncomment routes when needed
 // app.use("/user", userRoute);
 // app.use("/auth", authRoute); 
-// app.use("/category", categoryRoute);
 
 // Fallback for invalid routes
 app.use((req, res) => {

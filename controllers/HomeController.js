@@ -1,59 +1,64 @@
 const HomeData = require("../json/home.json");
 const petitionsData = require("../json/petitions.json"); // Static JSON fallback
-const {Petition} = require("../database/models/AccountModel.js"); // Uncomment when using database
+const { Petition } = require("../database/models/AccountModel.js"); // Uncomment when using the database
 const footerData = require("../json/footer.json");
 
 const home = async (req, res) => {
   try {
-    const users_counts = 250;  // Example value for active users
-    const sign_counts = 100;   // Example value for total signs
-    const petition_counts = 50; // Example value for total petitions
+    // Example counts for display
+    const users_counts = 250; 
+    const sign_counts = 100;
+    const petition_counts = 50;
 
     // Fetch featured petitions from the database
     let featuredPetitions = await Petition.find({})
       .sort({ supporters: -1 })
       .limit(3);
 
-    // Fallback to static JSON data if the database query fails or returns no data
     if (!featuredPetitions || featuredPetitions.length === 0) {
-      featuredPetitions = petitionsData;
+      featuredPetitions = petitionsData; // Fallback to static data
     }
 
-    const userPetitions = await Petition.find({ creatorId: req.session.userId });
-    if (!userPetitions) {
-        return res.status(404).send("No petitions found.");
+    // Fetch user-created petitions if userId exists
+    let userPetitions = [];
+    if (req.session.userId) {
+      userPetitions = await Petition.find({ creatorId: req.session.userId });
     }
 
-    const home = {
+    // Construct data for the home view
+    const data = {
       username: req.session.username,
       account: req.session.email,
+      header: HomeData.header, // Include header data
+      templates: HomeData.templates, // Add templates for categories
       featuredPetitions,
-      userPetitions, // Include user-created petitions
+      userPetitions,
       users_counts,
       sign_counts,
       petition_counts,
-      footerData, // Include footer data
-      ...HomeData,
+      footerData,
     };
 
-    res.render("home", home);
+    // Render the home page
+    res.render("home", data);
   } catch (error) {
     console.error("Error fetching data:", error.message);
 
-    // Fallback response if an error occurs
-    const home = {
-      username: req.session.username,
-      account: req.session.email,
+    // Fallback data in case of error
+    const fallbackData = {
+      username: req.session.username || "Guest",
+      account: req.session.email || "",
+      header: HomeData.header,
+      templates: HomeData.templates,
       featuredPetitions: petitionsData, // Fallback to static JSON
       userPetitions: [],
       users_counts: 0,
       sign_counts: 0,
       petition_counts: 0,
-      footerData, // Include footer data
-      ...HomeData,
+      footerData,
     };
 
-    res.render("home", home);
+    res.render("home", fallbackData);
   }
 };
 

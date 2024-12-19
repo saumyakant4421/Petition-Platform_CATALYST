@@ -1,4 +1,3 @@
-
 {   
     "header": {
         "choice": [
@@ -12,50 +11,55 @@
             }
         ]
     },
-    "templates": [
-     
+    "templates": 
+    [     
         {
             "title": "Environment",
-            "icon":"leaf",
-            "description": "Addressing critical environmental issues to promote sustainability and protect our planet for future generations."
+            "icon": "leaf",
+            "description": "Addressing critical environmental issues...",
+            "URL": "/listing/Environment"
         },
         {
             "title": "Economic Justice",
-            "icon":"analytics",
-            "description": "Advocating for equitable financial systems and opportunities to reduce poverty and economic disparities."
+            "icon": "analytics",
+            "description": "Advocating for equitable financial systems...",
+            "URL": "/listing/Economic%20Justice"
         },
         {
             "title": "Women's Rights",
-            "icon":"female",
-            "description": "Championing equality, safety, and empowerment for women in all aspects of life."
+            "icon": "female",
+            "description": "Championing equality, safety, and empowerment...",
+            "URL": "/listing/Women's%20Rights"
         },
         {
             "title": "Education",
-            "icon":"school",
-            "description": "Promoting access to quality education for all as a foundation for personal and societal growth."
+            "icon": "school",
+            "description": "Promoting access to quality education...",
+            "URL": "/listing/Education"
         },
         {
             "title": "Disability",
-            "icon":"accessibility",
-            "description": "Ensuring inclusion, accessibility, and equal opportunities for people with disabilities."
+            "icon": "accessibility",
+            "description": "Ensuring inclusion, accessibility, and equal opportunities...",
+            "URL": "/listing/Disability"
         },
         {
             "title": "Sports",
-            "icon":"football-outline",
-            "description": "Encouraging the growth of sports and recreation for health, unity, and talent development."
+            "icon": "football-outline",
+            "description": "Encouraging the growth of sports and recreation...",
+            "URL": "/listing/Sports"
         },
         {
             "title": "Entertainment and Media",
-            "icon":"videocam-outline",
-            "description": "Promoting creativity, cultural expression, and responsible media to inspire and inform society."
+            "icon": "videocam-outline",
+            "description": "Promoting creativity, cultural expression...",
+            "URL": "/listing/Entertainment%20and%20Media"
         },
         {
             "title": "Digital Rights",
-            "icon":"globe-outline",
-            "description": "Safeguarding individuals' access, privacy, and freedom on online platforms, ensuring fair and equitable participation in the digital age."
-        }
-         
+            "icon": "globe-outline",
+            "description": "Safeguarding individuals' access, privacy, and freedom...",
+            "URL": "/listing/Digital%20Rights"
+        }    
     ]
-    
 }
-
