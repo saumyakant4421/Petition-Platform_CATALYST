@@ -78,7 +78,7 @@ app.use("/", homeRoute);
 app.use("/account", accountRoute);
 app.use("/error", errorRoute);
 app.use("/petition", petitionRoute);
-app.use("/listing", listingRoute);
+app.use("/", listingRoute);
 // Uncomment routes when needed
 // app.use("/user", userRoute);
 // app.use("/auth", authRoute); 

@@ -3,7 +3,7 @@ const { Petition } = require("../database/models/AccountModel.js");
 // Middleware to check if user is logged in
 const isAuthenticated = (req, res, next) => {
     if (!req.session.userId) {
-        return res.redirect('#account-section'); // Redirect to login page if not logged in
+        return res.redirect('/#account-section'); // Redirect to login page if not logged in
     }
     next();
 };
@@ -11,37 +11,36 @@ const isAuthenticated = (req, res, next) => {
 // Controller to get petitions by category
 const getPetitionsByCategory = async (req, res) => {
     try {
-        console.log("Route reached"); // Debugging log
         const category = req.params.category; // Category from URL
-        const { sort } = req.query; // Get sort order from query params
-        console.log("Route reached"); // Debugging log
+        const { sort } = req.query; // Sort order from query params
 
-        let petitions = await Petition.find({ category: category });
+        // Sanitize category
+        const sanitizedCategory = category.replace(/[^a-zA-Z0-9\s]/g, "");
 
-        // Apply sorting based on query
-        if (sort === "newest") {
-            petitions.sort((a, b) => b.createdAt - a.createdAt);
-        } else if (sort === "oldest") {
-            petitions.sort((a, b) => a.createdAt - b.createdAt);
-        } else if (sort === "supporters") {
-            petitions.sort((a, b) => b.supporters.length - a.supporters.length);
-        }
+        // Build Mongoose query with sorting
+        let sortQuery = {};
+        if (sort === "newest") sortQuery = { createdAt: -1 };
+        else if (sort === "oldest") sortQuery = { createdAt: 1 };
+        else if (sort === "supporters") sortQuery = { "supporters.length": -1 };
 
-        // Render the petitions page
-        res.render('listing', {
+        // Fetch petitions
+        const petitions = await Petition.find({ category: sanitizedCategory }).sort(sortQuery);
+
+        // Render the listing page
+        res.render("listing", {
             petitions: petitions,
-            category: category,
+            category: sanitizedCategory,
             user: req.session.account,
         });
     } catch (err) {
         console.error("Error fetching petitions by category:", err.message);
-        res.render('creation/error', {
+        res.status(500).render("creation/error", {
             errorMessage: "An error occurred while fetching petitions.",
         });
     }
 };
 
 module.exports = {
-    isAuthenticated, // Export middleware
-    getPetitionsByCategory, // Export controller
+    isAuthenticated,
+    getPetitionsByCategory,
 };

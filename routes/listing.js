@@ -1,8 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const ListingController = require("../controllers/ListingController.js");
+const { isAuthenticated, getPetitionsByCategory } = require('../controllers/ListingController');
 
-// Use isAuthenticated middleware from the controller
-router.get("/listing/:category", ListingController.isAuthenticated, ListingController.getPetitionsByCategory);
+router.get('/listing/:category', isAuthenticated, getPetitionsByCategory);
 
 module.exports = router;
