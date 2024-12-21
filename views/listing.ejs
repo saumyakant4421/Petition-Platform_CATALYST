@@ -13,31 +13,40 @@
     <link rel="stylesheet" href="/listing.css">
 </head>
 <body>
-    <header><%- include("./error/navbar.ejs") %></header>
+    
+    <header><%- include("./listing/navbar.ejs") %></header>
+
+<section id = "listing-content">
     <div class="filter-container">
         <h1>Petitions in <%= category %></h1>
         <div class="filters">
-            <select id="filter-category" onchange="filterCategory(this.value)">
-                <option value="">Filter by Category</option>
-                <% // Dynamically generate filter options based on your application's categories %>
-                <% ['Technology', 'Health', 'Education', 'Environment', 'Politics'].forEach(cat => { %>
-                    <option value="<%= cat %>" <%= category === cat ? 'selected' : '' %>><%= cat %></option>
-                <% }) %>
-            </select>
-
-            <select id="filter-sort" onchange="sortPetitions(this.value)">
-                <option value="">Sort by</option>
-                <option value="newest">Newest to Oldest</option>
-                <option value="oldest">Oldest to Newest</option>
-                <option value="supporters">Most Supporters</option>
-            </select>
-        </div>
+            <!-- Custom Category Dropdown -->
+            <div class="custom-dropdown" id="category-dropdown">
+                <div class="dropdown-selected">Filter by Category</div>
+                <ul class="dropdown-options">
+                    <% ['Environment', 'Economic Justice', "Women's Rights", 'Education', 'Disability', 'Sports', 'Entertainment and Media', 'Digital Rights']
+                    .forEach(cat => { %>
+                        <li data-value="<%= cat %>" <%= category === cat ? 'class="selected"' : '' %>><%= cat %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        
+            <!-- Custom Sort Dropdown -->
+            <div class="custom-dropdown" id="sort-dropdown">
+                <div class="dropdown-selected">Sort by</div>
+                <ul class="dropdown-options">
+                    <li data-value="newest">Newest to Oldest</li>
+                    <li data-value="oldest">Oldest to Newest</li>
+                    <li data-value="supporters">Most Supporters</li>
+                </ul>
+            </div>
+        </div>        
     </div>
 
     <div class="petition-grid">
         <% petitions.forEach(petition => { %>
         <div class="petition-card">
-            <img class="petition-image" src="<%= petition.image %>" alt="Petition Image">
+            <img class="petition-image" src="<%= petition.image %>" alt="Petition Image"onerror="this.onerror=null; this.src='/categorysection.png';">
             <h3 class="petition-title"><%= petition.title %></h3>
             <p class="petition-supporters">Supporters: <%= petition.supporters.length %></p>
             <p class="petition-author">Author: <%= petition.authors[0] %></p>
@@ -45,18 +54,8 @@
         </div>
         <% }) %>
     </div>
-
-    <script>
-        function filterCategory(category) {
-            if (category) {
-                window.location.href = `/petitions/${category}`;
-            }
-        }
-
-        function sortPetitions(order) {
-            // Add sorting logic (client-side or server-side implementation)
-            console.log("Selected sorting order:", order);
-        }
-    </script>
+</section>
+      
+    <script src="/listing.js"></script>
 </body>
 </html>

@@ -26,6 +26,11 @@ const getPetitionsByCategory = async (req, res) => {
         // Fetch petitions
         const petitions = await Petition.find({ category: sanitizedCategory }).sort(sortQuery);
 
+        // Check if it's an AJAX request
+        if (req.xhr) {
+            return res.json({ petitions });
+        }
+
         // Render the listing page
         res.render("listing", {
             petitions: petitions,
@@ -34,11 +39,15 @@ const getPetitionsByCategory = async (req, res) => {
         });
     } catch (err) {
         console.error("Error fetching petitions by category:", err.message);
+        if (req.xhr) {
+            return res.status(500).json({ error: "Failed to fetch petitions." });
+        }
         res.status(500).render("creation/error", {
             errorMessage: "An error occurred while fetching petitions.",
         });
     }
 };
+
 
 module.exports = {
     isAuthenticated,

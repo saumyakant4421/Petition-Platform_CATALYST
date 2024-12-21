@@ -1,15 +1,8 @@
+@import url("./listings/navbar.css");
 
 
-header{
-    justify-content: center;
-    display:flex;
-    flex-direction: row;
-}
 body{
-    justify-content: center;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
     background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
     background-position: center;
     background-repeat: repeat;
@@ -17,3 +10,228 @@ body{
     font-family: "Poppins", sans-serif;
     background-color: #1F2029;
 }
+
+#listing-content{
+    justify-content: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#listing-content h1 {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 2.5rem; 
+  color: #ffffff; 
+  text-align: center; 
+  /* margin-bottom: 20px;  */
+}
+
+
+
+
+/* ******************** */
+/* Filter Container CSS */
+
+.filter-container{
+    margin: 0px;
+    /* height: 3rem; */
+    padding: 0px;
+}
+
+.filter-container h1{
+    margin: 0px;
+}
+
+.filters{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+}
+
+
+/* General container styling for alignment */
+.filters {
+    /* display: flex; */
+    gap: 20px;
+    /* justify-content: flex-start; */
+    margin-bottom: 20px;
+}
+
+.filters select {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 200px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dropdown-selected {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: 2px solid #aaa;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.dropdown-selected:hover {
+    background-color: #555;
+}
+
+.dropdown-options {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    border: 2px solid #aaa;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+}
+
+.dropdown-options li {
+    padding: 10px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+}
+
+.dropdown-options li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-options li:hover {
+    background-color: purple;
+    color: white;
+}
+
+.selected {
+    background-color: #444;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Petition Tiles CSS */
+
+.petition-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
+    gap: 16px; /* Space between grid items */
+    padding: 20px; /* Optional padding for the grid container */
+}
+
+
+.petition-card {
+  width: 24rem;
+  height:27.5rem;
+  color:whitesmoke;
+  background-color: #2a2b38;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+  align-items:center;
+  justify-content: center;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+  background-repeat: no-repeat;
+  background-size: 300%;
+  background-position: bottom center;  
+}
+
+h3.petition-title{
+  display: -webkit-box;              
+  -webkit-box-orient: vertical;     
+  -webkit-line-clamp: 2;           
+  overflow: hidden;  
+  text-overflow: ellipsis;    
+  max-width: 23rem;                
+  height: 3rem;             
+  text-align: center;         
+  font-size: 1.40rem;
+  line-height: 1.2;    
+  margin: 0 auto;                    
+  display: flex;                   
+  align-items: center;   
+  justify-content: center; 
+  padding: 1rem;     
+  font-weight: 400;              
+}
+
+img.petition-image{
+  /* height: 5rem; */
+  max-width:45rem;
+  max-height:12rem;
+}
+.petition-supporters{
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+  
+p.petition-supporters{
+  color:#610be2;
+  font-size: 1.15rem;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+  width:16rem;
+  margin-left:4rem;
+}
+
+p.petiton-author{
+  color:azure;
+  padding-top: 0.5rem;
+}
+
+.petition-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.petition-card:hover {
+  transform: scale(1.05);
+}
+
+.sign-btn {
+  display: inline-block;
+  /* margin-top: 1rem; */
+  padding: 0.5rem 1rem;
+  background-color: #730069;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sign-btn:hover {
+  background-color: #5f0f5b;
+}
+  
