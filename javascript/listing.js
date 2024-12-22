@@ -6,11 +6,11 @@ document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
 
     // Toggle dropdown visibility
     selected.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown-options').forEach(el => {
-            if (el !== options) el.style.display = 'none'; // Close other dropdowns
-        });
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        const isExpanded = selected.getAttribute('aria-expanded') === 'true';
+        options.style.display = isExpanded ? 'none' : 'block';
+        selected.setAttribute('aria-expanded', String(!isExpanded)); // Correct toggle
     });
+    
 
     // Handle option selection
     items.forEach(item => {
@@ -18,10 +18,8 @@ document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
             selected.textContent = item.textContent; // Update selected text
             selected.setAttribute('data-value', item.getAttribute('data-value')); // Store value
             options.style.display = 'none'; // Close dropdown
-            items.forEach(i => i.classList.remove('selected')); // Remove selected class
-            item.classList.add('selected'); // Add selected class
+            selected.setAttribute('aria-expanded', 'false'); // Close state
 
-            // Execute corresponding logic for category or sort dropdown
             const value = item.getAttribute('data-value');
             if (dropdown.id === 'category-dropdown') {
                 filterCategory(value);
@@ -33,53 +31,94 @@ document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
 
     // Close dropdown if clicked outside
     document.addEventListener('click', e => {
-        if (!dropdown.contains(e.target)) {
-            options.style.display = 'none';
-        }
-    });
+        document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+            const options = dropdown.querySelector('.dropdown-options');
+            const selected = dropdown.querySelector('.dropdown-selected');
+            if (!dropdown.contains(e.target)) {
+                options.style.display = 'none';
+                selected.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });    
 });
 
 // Filtering logic
 function filterCategory(category) {
-    if (category) {
-        window.location.href = `/listing/${category}`;
+    if (!category) {
+        console.error("Invalid category selected.");
+        updatePetitionGrid([]); // Clear grid
+        return;
     }
-}
 
+    const petitionsGrid = document.querySelector('.petition-grid');
+    petitionsGrid.innerHTML = '<p>Loading petitions...</p>'; // Show loading message
 
-// Sorting logic
-function sortPetitions(order) {
-    const category = document.querySelector('#category-dropdown .dropdown-selected').getAttribute('data-value'); // Get selected category
-    const petitionsGrid = document.querySelector('.petition-grid'); // Petition grid container
-
-    fetch(`/listing/${category}?sort=${order}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+    fetch(`/listing?category=${encodeURIComponent(category)}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to fetch sorted petitions.");
-            }
+            if (!response.ok) throw new Error(`Failed to fetch petitions: ${response.statusText}`);
+            console.log("triggered");
             return response.json();
         })
         .then(data => {
-            const petitions = data.petitions;
+            console.log("Filtered Data:", data);
+            updatePetitionGrid(data.petitions);
+        })
+        .catch(error => {
+            console.error("Error filtering category:", error);
+            petitionsGrid.innerHTML = '<p>Failed to load petitions. Please try again later.</p>';
+        });
+}
 
-            // Clear existing petitions
-            petitionsGrid.innerHTML = '';
+// Sorting logic
+function sortPetitions(order) {
+    const currentCategory = document.querySelector('#category-dropdown .dropdown-selected').getAttribute('data-value') || '';
 
-            // Render the new sorted petitions
-            petitions.forEach(petition => {
-                const petitionCard = `
-                    <div class="petition-card">
-                        <img class="petition-image" src="${petition.image || '/assets/default-image.jpg'}" alt="Petition Image">
-                        <h3 class="petition-title">${petition.title}</h3>
-                        <p class="petition-supporters">Supporters: ${petition.supporters.length}</p>
-                        <p class="petition-author">Author: ${petition.authors[0]}</p>
-                        <a href="/petition/${petition._id}" class="sign-btn">Sign Now</a>
-                    </div>
-                `;
-                petitionsGrid.insertAdjacentHTML('beforeend', petitionCard);
-            });
+    if (!currentCategory || currentCategory === 'Filter by Category') {
+        console.error("No category selected. Sorting cannot proceed.");
+        alert("Please select a category before sorting.");
+        return;
+    }
+
+    fetch(`/listing?category=${encodeURIComponent(currentCategory)}&sort=${encodeURIComponent(order)}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error(`Failed to fetch sorted petitions: ${response.statusText}`);
+            return response.json();
+        })
+        .then(data => {
+            console.log("Sorted Data:", data);
+            updatePetitionGrid(data.petitions);
         })
         .catch(error => {
             console.error("Error sorting petitions:", error);
+            const petitionsGrid = document.querySelector('.petition-grid');
+            petitionsGrid.innerHTML = '<p>Failed to load sorted petitions. Please try again later.</p>';
         });
+}
+
+
+function updatePetitionGrid(petitions = []) {
+    const petitionsGrid = document.querySelector('.petition-grid');
+    petitionsGrid.innerHTML = ''; // Clear existing petitions
+
+    if (petitions.length === 0) {
+        petitionsGrid.innerHTML = '<p>No petitions found for this category and sort order.</p>';
+        return;
+    }
+
+    petitions.forEach(petition => {
+        const petitionCard = `
+            <div class="petition-card">
+                <img class="petition-image" src="${petition.image || '/assets/default-image.jpg'}" alt="Petition Image" loading="lazy" onerror="this.src='/assets/default-image.jpg';">
+                <h3 class="petition-title">${petition.title || 'Untitled'}</h3>
+                <p class="petition-supporters">Supporters: ${petition.supporters?.length || 0}</p>
+                <p class="petition-author">Author: ${petition.authors?.[0] || 'Unknown'}</p>
+                <a href="/petition/${petition._id}" class="sign-btn">Sign Now</a>
+            </div>
+        `;
+        petitionsGrid.insertAdjacentHTML('beforeend', petitionCard);
+    });
 }

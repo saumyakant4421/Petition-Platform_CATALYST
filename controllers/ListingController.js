@@ -1,6 +1,11 @@
 const { Petition } = require("../database/models/AccountModel.js");
 
-// Middleware to check if user is logged in
+/**
+ * Middleware to check if the user is logged in
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const isAuthenticated = (req, res, next) => {
     if (!req.session.userId) {
         return res.redirect('/#account-section'); // Redirect to login page if not logged in
@@ -8,46 +13,73 @@ const isAuthenticated = (req, res, next) => {
     next();
 };
 
-// Controller to get petitions by category
+/**
+ * Controller to get petitions by category and sort order
+ * Handles both JSON responses for AJAX requests and EJS rendering for full-page responses
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 const getPetitionsByCategory = async (req, res) => {
     try {
-        const category = req.params.category; // Category from URL
-        const { sort } = req.query; // Sort order from query params
+        const category = req.query.category || req.params.category || null;
+        const sort = req.query.sort || "newest";
 
-        // Sanitize category
-        const sanitizedCategory = category.replace(/[^a-zA-Z0-9\s]/g, "");
-
-        // Build Mongoose query with sorting
-        let sortQuery = {};
-        if (sort === "newest") sortQuery = { createdAt: -1 };
-        else if (sort === "oldest") sortQuery = { createdAt: 1 };
-        else if (sort === "supporters") sortQuery = { "supporters.length": -1 };
-
-        // Fetch petitions
-        const petitions = await Petition.find({ category: sanitizedCategory }).sort(sortQuery);
-
-        // Check if it's an AJAX request
-        if (req.xhr) {
-            return res.json({ petitions });
+        if (!category && req.xhr) {
+            return res.status(200).json({ petitions: [] });
         }
 
-        // Render the listing page
+        const validCategories = ['Environment', 'Economic Justice', "Women's Rights", 'Education', 'Disability', 'Sports', 'Entertainment and Media', 'Digital Rights'];
+        const sanitizedCategory = category ? category.replace(/[^a-zA-Z0-9\s]/g, "") : null;
+
+        if (sanitizedCategory && !validCategories.includes(sanitizedCategory)) {
+            return res.status(400).json({ error: "Invalid category" });
+        }
+
+        let sortQuery = {};
+        switch (sort) {
+            case "newest":
+                sortQuery = { createdAt: -1 };
+                break;
+            case "oldest":
+                sortQuery = { createdAt: 1 };
+                break;
+            case "supporters":
+                sortQuery = { supportersCount: -1 };
+                break;
+            default:
+                sortQuery = { createdAt: -1 };
+        }
+
+        const petitions = sanitizedCategory
+            ? await Petition.aggregate([
+                { $match: { category: sanitizedCategory } },
+                { $addFields: { supportersCount: { $size: "$supporters" } } },
+                { $sort: sortQuery },
+            ])
+            : [];
+
+        if (req.xhr) {
+            return res.status(200).json({ petitions });
+        }
+
         res.render("listing", {
-            petitions: petitions,
+            petitions,
             category: sanitizedCategory,
-            user: req.session.account,
+            sort,
+            user: req.session.account || null,
         });
     } catch (err) {
         console.error("Error fetching petitions by category:", err.message);
+
         if (req.xhr) {
             return res.status(500).json({ error: "Failed to fetch petitions." });
         }
+
         res.status(500).render("creation/error", {
             errorMessage: "An error occurred while fetching petitions.",
         });
     }
 };
-
 
 module.exports = {
     isAuthenticated,
