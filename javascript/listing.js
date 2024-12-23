@@ -8,9 +8,8 @@ document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
     selected.addEventListener('click', () => {
         const isExpanded = selected.getAttribute('aria-expanded') === 'true';
         options.style.display = isExpanded ? 'none' : 'block';
-        selected.setAttribute('aria-expanded', String(!isExpanded)); // Correct toggle
+        selected.setAttribute('aria-expanded', String(!isExpanded));
     });
-    
 
     // Handle option selection
     items.forEach(item => {
@@ -39,7 +38,7 @@ document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
                 selected.setAttribute('aria-expanded', 'false');
             }
         });
-    });    
+    });
 });
 
 // Filtering logic
@@ -50,15 +49,18 @@ function filterCategory(category) {
         return;
     }
 
+    // Update the heading dynamically
+    const heading = document.querySelector('.filter-container h1');
+    heading.textContent = `Petitions in ${category}`;
+
     const petitionsGrid = document.querySelector('.petition-grid');
     petitionsGrid.innerHTML = '<p>Loading petitions...</p>'; // Show loading message
 
-    fetch(`/listing?category=${encodeURIComponent(category)}`, {
+    fetch(`/listing/${encodeURIComponent(category)}`, { // Use correct route
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
         .then(response => {
             if (!response.ok) throw new Error(`Failed to fetch petitions: ${response.statusText}`);
-            console.log("triggered");
             return response.json();
         })
         .then(data => {
@@ -81,7 +83,7 @@ function sortPetitions(order) {
         return;
     }
 
-    fetch(`/listing?category=${encodeURIComponent(currentCategory)}&sort=${encodeURIComponent(order)}`, {
+    fetch(`/listing/${encodeURIComponent(currentCategory)}?sort=${encodeURIComponent(order)}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
         .then(response => {
@@ -99,7 +101,6 @@ function sortPetitions(order) {
         });
 }
 
-
 function updatePetitionGrid(petitions = []) {
     const petitionsGrid = document.querySelector('.petition-grid');
     petitionsGrid.innerHTML = ''; // Clear existing petitions
@@ -112,7 +113,8 @@ function updatePetitionGrid(petitions = []) {
     petitions.forEach(petition => {
         const petitionCard = `
             <div class="petition-card">
-                <img class="petition-image" src="${petition.image || '/assets/default-image.jpg'}" alt="Petition Image" loading="lazy" onerror="this.src='/assets/default-image.jpg';">
+                ${petition.verified === 'Y' ? `<span class="verified-icon"><img src="/verified4.png"></span>` : ''}
+                <img class="petition-image" src="${petition.image || '/assets/default-image.jpg'}" alt="Petition Image" loading="lazy" onerror="this.src='/categorysection.png';">
                 <h3 class="petition-title">${petition.title || 'Untitled'}</h3>
                 <p class="petition-supporters">Supporters: ${petition.supporters?.length || 0}</p>
                 <p class="petition-author">Author: ${petition.authors?.[0] || 'Unknown'}</p>

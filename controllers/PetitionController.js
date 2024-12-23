@@ -88,9 +88,11 @@ exports.createPetition = async (req, res) => {
             targetEntities: petitionToArray,  
             createdAt: new Date(),
             targetSupporters: targetSupporters,
+            targetDate: petition_date,
             creatorId: req.session.userId,
             supporters: [],
             image: imageUrl, // Set image URL
+            verified: 'N',
         };
 
         // Save petition to database

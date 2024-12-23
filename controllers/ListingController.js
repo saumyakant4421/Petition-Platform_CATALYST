@@ -29,7 +29,7 @@ const getPetitionsByCategory = async (req, res) => {
         }
 
         const validCategories = ['Environment', 'Economic Justice', "Women's Rights", 'Education', 'Disability', 'Sports', 'Entertainment and Media', 'Digital Rights'];
-        const sanitizedCategory = category ? category.replace(/[^a-zA-Z0-9\s]/g, "") : null;
+        const sanitizedCategory = category ? category : null;
 
         if (sanitizedCategory && !validCategories.includes(sanitizedCategory)) {
             return res.status(400).json({ error: "Invalid category" });

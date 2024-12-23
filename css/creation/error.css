@@ -8,8 +8,8 @@
 }
 
 html, body {
-    height: 100%; /* Ensure the body and html take up the full viewport height */
-    overflow: hidden; /* Prevent scrolling */
+    height: 100%; 
+    overflow: hidden; 
 }
 
 body {

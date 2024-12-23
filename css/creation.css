@@ -42,7 +42,6 @@ body{
     background-color: #1d1e23;
     width: 100%;
     max-width: 55rem;
-    /* height: 90rem; */
     position: relative;
     background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
     background-repeat: no-repeat;
@@ -73,7 +72,6 @@ form{
     flex-direction: column;
     gap: 1rem;
 }
-
 
 /* Scope and Category Container */
 /*******************/
@@ -169,6 +167,7 @@ input:checked+.radio-tile label {
    outline:none;
    color:black;
    font-size:1em;
+   font-family: "Poppins", sans-serif;
    transition:0.5s;
 }
 
@@ -238,9 +237,9 @@ input:checked+.radio-tile label {
 .input-con3,
 .input-con4,
 .input-con5 {
-    margin-top: 2rem; /* Use margin instead of top */
+    margin-top: 2rem; 
     width: 46rem;
-    position: relative; /* Keep them in the flow of the document */
+    position: relative; 
     height: 2.10em;
 }
 

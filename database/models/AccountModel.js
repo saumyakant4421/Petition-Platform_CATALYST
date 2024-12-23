@@ -53,6 +53,12 @@ const PetitionSchema = new Schema({
     default: "active",
   },
   createdAt: { type: Date, default: Date.now },
+  targetDate: {type: Date},
+  verified: {
+    type: String,
+    enum: ['Y', 'N'],
+    default: 'N', // Default to "N" (unverified)
+  },
 });
 
 // Middleware to update the status if supporters reach the target

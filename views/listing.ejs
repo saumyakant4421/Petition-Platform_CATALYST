@@ -46,6 +46,9 @@
     <div class="petition-grid">
         <% petitions.forEach(petition => { %>
         <div class="petition-card">
+            <% if (petition.verified === 'Y') { %>
+                <span class="verified-icon"><img src = "/verified4.png"></span>
+            <% } %>
             <img class="petition-image" src="<%= petition.image %>" alt="Petition Image"onerror="this.onerror=null; this.src='/categorysection.png';">
             <h3 class="petition-title"><%= petition.title %></h3>
             <p class="petition-supporters">Supporters: <%= petition.supporters.length %></p>
