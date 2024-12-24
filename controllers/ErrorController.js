@@ -2,7 +2,6 @@ const ErrorData = require("../json/error.json");
 
 const accountExists = (req, res) => {
   res.render("error", { error: ErrorData.accountExists });
-  console.log("Account exists error route hit");
 
 };
 

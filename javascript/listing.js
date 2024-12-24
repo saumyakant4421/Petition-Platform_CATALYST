@@ -64,7 +64,7 @@ function filterCategory(category) {
             return response.json();
         })
         .then(data => {
-            console.log("Filtered Data:", data);
+            // console.log("Filtered Data:", data);
             updatePetitionGrid(data.petitions);
         })
         .catch(error => {
@@ -91,7 +91,7 @@ function sortPetitions(order) {
             return response.json();
         })
         .then(data => {
-            console.log("Sorted Data:", data);
+            // console.log("Sorted Data:", data);
             updatePetitionGrid(data.petitions);
         })
         .catch(error => {

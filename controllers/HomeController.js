@@ -42,7 +42,6 @@ const home = async (req, res) => {
     // Render the home page
     res.render("home", data);
   } catch (error) {
-    console.error("Error fetching data:", error.message);
 
     // Fallback data in case of error
     const fallbackData = {

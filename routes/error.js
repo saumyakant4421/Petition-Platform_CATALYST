@@ -10,7 +10,7 @@ const errorMapping = {
     "Account creation failed": "accountCreationFailure",
     "Incorrect password": "loginPasswordIncorrect",
     "Password mismatch": "loginPasswordMismatch",
-    "Invalid email or password": "loginPasswordIncorrect", // Add this line for the specific error message
+    "Invalid email or password": "loginPasswordIncorrect", 
     // Add more mappings as needed
 };
 
@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
     res.render("error", { error: { 
         title: "Unknown Error", 
         description: "An unexpected error occurred. Please try again later.", 
-        image: "/path/to/default-error-image.png" // Replace with your default error image path
+        image: "/path/to/default-error-image.png" 
     }});
 });
 

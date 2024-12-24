@@ -15,7 +15,6 @@ exports.startPetition = (req, res) => {
 
 exports.createPetition = async (req, res) => {
     try {
-        console.log(req.body); // Debug: Check form data
 
         const {
             title,
@@ -59,7 +58,6 @@ exports.createPetition = async (req, res) => {
             // This is now wrapped in a promise to wait for the finish event before continuing
             await new Promise((resolve, reject) => {
                 stream.on('error', (err) => {
-                    console.error("Error uploading to Firebase:", err.message);
                     reject(new Error("Image upload failed."));
                 });
 
@@ -105,7 +103,6 @@ exports.createPetition = async (req, res) => {
             { $push: { createdPetitions: petition._id } }
         );
 
-        console.log("Petition Created:", petition);
         res.render('creation/success', {
             message: "Petition created successfully!",
         });
