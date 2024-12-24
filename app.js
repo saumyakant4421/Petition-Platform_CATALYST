@@ -40,6 +40,8 @@ const accountRoute = require("./routes/account.js");
 const errorRoute = require("./routes/error.js");
 const petitionRoute = require("./routes/petition.js");
 const listingRoute = require("./routes/listing.js");
+const detailsRoute = require("./routes/details.js");
+
 // const authRoute = require("./routes/auth.js");
 
 // Middleware for parsing request bodies
@@ -79,8 +81,8 @@ app.use("/account", accountRoute);
 app.use("/error", errorRoute);
 app.use("/petition", petitionRoute);
 app.use("/", listingRoute);
+app.use("/petition", detailsRoute);
 // Uncomment routes when needed
-// app.use("/user", userRoute);
 // app.use("/auth", authRoute); 
 
 // Fallback for invalid routes

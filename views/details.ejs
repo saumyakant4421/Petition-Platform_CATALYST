@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= petition.title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="petition-details">
+        <h1><%= petition.title %></h1>
+        <img src="<%= petition.image || '/assets/default-image.jpg' %>" alt="Petition Image" loading="lazy">
+        <p><strong>Category:</strong> <%= petition.category %></p>
+        <p><strong>Author:</strong> <%= petition.authors?.[0] || 'Unknown' %></p>
+        <p><strong>Description:</strong> <%= petition.description || 'No description available.' %></p>
+        <p><strong>Supporters:</strong> <%= petition.supporters.length %></p>
+        <div>
+            <% if (user && user._id) { %>
+                <button id="sign-petition-btn" class="sign-btn">Sign this Petition</button>
+            <% } else { %>
+                <p>You must <a href="/#account-section">log in</a> to sign this petition.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sign-petition-btn')?.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`/petition/<%= petition._id %>/sign`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.error || "An error occurred.");
+                }
+            } catch (error) {
+                console.error("Error signing petition:", error);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+    </script>
+</body>
+</html>
